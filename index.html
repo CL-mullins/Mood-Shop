@@ -25,11 +25,8 @@
     <body>
 <script src='./resources/js/script.js' type='module'>
     const cart = []
-
-    const obj = { }
-    console.log(obj)
-    console.log('*************')
-
+// --------------------------------------------------------
+// Add item
     function addItem(name, price) {
         for (let i = 0; i < cart.length; i += 1) {
             if (cart[i].name === name) {
@@ -40,6 +37,7 @@
         const item = {name: name, price:price, qty: 1}
         cart.push(item)
     }
+// ---------------------------------------------------
     // Show items
     function showItems() {
         const qty = getQty()
@@ -52,6 +50,7 @@
 
         console.log(`Total in cart: $${getTotal()}`)
     }
+// ------------------------------------------
     // Get quantity
     function  getQty(){
         let qty = 0
@@ -59,6 +58,7 @@
             qty += cart[i].qty
         return qty
     }
+//--------------------------------------------
     // Get total
     function getTotal() {
         let total = 0
@@ -69,6 +69,23 @@
 
 
     }
+// ------------------------------------------
+// Remove item
+function removeItem(name) {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            if (qty > 0) {
+                cart[i].qty -= 1
+            }
+            //cart[i].qty -= 1
+            if (cart[i].qty < 1 || qty == 0) {
+                cart.splice(i, 1)
+            }
+            return
+        }
+    }
+}
+
 </script>
     </body>
 </html>
