@@ -6,6 +6,11 @@ itemList.innerHTML = '<li> Hello World </li>'
 console.log(itemList)
 const itemsContainer = document.getElementById('items')
 // the length of our data determines how many times this loop goes around
+const all_items_button = Array.from(document.querySelectorAll("button"))
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+  }))
 for (let i=0; i<data.length; ++i) {
     // create a new div element and give it a class name
     let newDiv = document.createElement('div');
