@@ -20,9 +20,19 @@
         -->
     </main>
     <footer>
-
+        <div id='cart-qty'>
+            <!-- cart qty here -->
+          </div>
+          <ul id='item-list'>
+            <!-- cart items -->
+          </ul>
+          <div id='cart-total'>
+            <!-- cart total -->
+          </div>
     </footer>
     <body>
+
+        <!-- qty -->
 <script src='./resources/js/script.js' type='module'>
     const cart = []
 // --------------------------------------------------------
@@ -41,14 +51,24 @@
     // Show items
     function showItems() {
         const qty = getQty()
-        console.log(`You have ${qty} items in your cart`)
+        //console.log(`You have ${qty} items in your cart`)
+        cartQty.innerHTML = `You have ${qty} items in your cart`
 
-
+        let itemStr = ''
         for (let i = 0;i < cart.length; i += 1) {
-            console.log(`${cart[i].name} $${cart[i].price} ${cart[i].qty}`)
-        }
+            //console.log(`${cart[i].name} $${cart[i].price} x ${cart[i].qty}`)
+            const name = cart[i].name
+            const price = cart[i].price
+            const qty = cart[i].qty
+            const { name, price, qty} = cart[i]
 
-        console.log(`Total in cart: $${getTotal()}`)
+            itemStr +=`<li> ${name} $${price} x ${qty} = ${qty * price}</li>`
+        }
+        itemList.innerHTML = itemStr
+
+
+        //console.log(`Total in cart: $${getTotal()}`)
+        cartTotal.innerHTML = `Total in cart: $${getTotal()}`
     }
 // ------------------------------------------
     // Get quantity
