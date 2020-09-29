@@ -2,15 +2,18 @@ import data from './data.js'
 const itemList = document.getElementById('item-list')
 const cartQty = document.getElementById('cart-qty')
 const cartTotal = document.getElementById('cart-total')
+
 itemList.innerHTML = '<li> Hello World </li>'
+
 console.log(itemList)
+
 const itemsContainer = document.getElementById('items')
 // the length of our data determines how many times this loop goes around
-const all_items_button = Array.from(document.querySelectorAll("button"))
-all_items_button.forEach(elt => elt.addEventListener('click', () => {
-    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
-    showItems()
-  }))
+
+
+
+
+// Display items on the page
 for (let i=0; i<data.length; ++i) {
     // create a new div element and give it a class name
     let newDiv = document.createElement('div');
@@ -48,3 +51,84 @@ for (let i=0; i<data.length; ++i) {
     newDiv.appendChild(button)
     itemsContainer.appendChild(newDiv)
 }
+
+const all_items_button = (document.querySelectorAll("button"))
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+  }))
+
+const cart = []
+// --------------------------------------------------------
+// Add item
+    function addItem(name, price) {
+        for (let i = 0; i < cart.length; i += 1) {
+            if (cart[i].name === name) {
+                cart[i].qty += 1
+                return
+            }
+        }
+        const item = {name: name, price:price, qty: 1}
+        cart.push(item)
+    }
+// ---------------------------------------------------
+    // Show items
+    function showItems() {
+        const qty = getQty()
+        //console.log(`You have ${qty} items in your cart`)
+        cartQty.innerHTML = `You have ${qty} items in your cart`
+
+        let itemStr = ''
+        for (let i = 0;i < cart.length; i += 1) {
+            //console.log(`${cart[i].name} $${cart[i].price} x ${cart[i].qty}`)
+            const name = cart[i].name
+            const price = cart[i].price
+            const qty = cart[i].qty
+           // const { name, price, qty} = cart[i]
+
+            itemStr +=`<li> ${name} $${price} x ${qty} = ${qty * price}</li>`
+        }
+        itemList.innerHTML = itemStr
+
+
+        //console.log(`Total in cart: $${getTotal()}`)
+        cartTotal.innerHTML = `Total in cart: $${getTotal()}`
+    }
+// ------------------------------------------
+    // Get quantity
+    function  getQty(){
+        let qty = 0
+        for (let i = 0; i < cart.length; i += 1) {
+            qty += cart[i].qty
+        return qty
+    }
+}
+//--------------------------------------------
+    // Get total
+    function getTotal() {
+        let total = 0
+        for (i = 0; i < cart.length; i += 1) {
+            total += cart[i].price * cart[i].qty
+        }
+        return total.toFixed(2)
+
+
+    }
+// ------------------------------------------
+// Remove item
+function removeItem(name) {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            if (qty > 0) {
+                cart[i].qty -= 1
+            }
+            //cart[i].qty -= 1
+            if (cart[i].qty < 1 || qty == 0) {
+                cart.splice(i, 1)
+            }
+            return
+        }
+    }
+}
+
+
